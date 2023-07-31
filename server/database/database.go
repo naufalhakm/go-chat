@@ -2,6 +2,7 @@ package database
 
 import (
 	"database/sql"
+	"fmt"
 
 	_ "github.com/lib/pq"
 )
@@ -10,8 +11,19 @@ type Database struct {
 	db *sql.DB
 }
 
+const (
+	host     = "db.pqbkaromekpyfrgtjoyx.supabase.co"
+	port     = 5432
+	user     = "postgres"
+	password = "APpM2gwyta5WArqY"
+	dbname   = "postgres"
+)
+
 func NewDatabase() (*Database, error) {
-	db, err := sql.Open("postgres", "postgresql://nhdb_curiousto:f9a3ac0b555706b6304f333484ccb61a03cbef65@9i3.h.filess.io:5432/nhdb_curiousto")
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
+		"password=%s dbname=%s sslmode=disable",
+		host, port, user, password, dbname)
+	db, err := sql.Open("postgres", psqlInfo)
 
 	if err != nil {
 		return nil, err
